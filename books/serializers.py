@@ -1,21 +1,8 @@
-"""
-Serializers para la API de libros.
-
-Define cómo se serializan y deserializan los datos del modelo Book.
-"""
-
 from rest_framework import serializers
 from .models import Book
 import re
 
-
 class BookSerializer(serializers.ModelSerializer):
-    """
-    Serializer principal para el modelo Book.
-    
-    Maneja la serialización para operaciones CRUD básicas.
-    Incluye validaciones personalizadas para ISBN y otros campos.
-    """
     
     class Meta:
         model = Book
@@ -74,9 +61,6 @@ class BookSerializer(serializers.ModelSerializer):
         return value
     
     def validate_cost_usd(self, value):
-        """
-        Valida que el costo sea mayor a 0.
-        """
         if value <= 0:
             raise serializers.ValidationError(
                 'El costo debe ser mayor a 0.'
@@ -84,9 +68,6 @@ class BookSerializer(serializers.ModelSerializer):
         return value
     
     def validate_stock_quantity(self, value):
-        """
-        Valida que el stock no sea negativo.
-        """
         if value < 0:
             raise serializers.ValidationError(
                 'El stock no puede ser negativo.'
@@ -94,9 +75,6 @@ class BookSerializer(serializers.ModelSerializer):
         return value
     
     def validate_supplier_country(self, value):
-        """
-        Valida el código de país del proveedor.
-        """
         if len(value) != 2:
             raise serializers.ValidationError(
                 'El código de país debe tener 2 caracteres.'
@@ -105,11 +83,6 @@ class BookSerializer(serializers.ModelSerializer):
 
 
 class BookListSerializer(serializers.ModelSerializer):
-    """
-    Serializer simplificado para listados de libros.
-    
-    Muestra menos campos para mejorar el rendimiento en listados.
-    """
     
     class Meta:
         model = Book
