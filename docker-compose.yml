@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  # Servicio de base de datos MySQL
+  db:
+    image: mysql:8.0
+    container_name: bookstore_mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: bookstore_db
+      MYSQL_USER: bookstore_user
+      MYSQL_PASSWORD: bookstore_pass_123
+      MYSQL_ROOT_PASSWORD: root_password_123
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  # Servicio de la API Django
+  web:
+    build: .
+    container_name: bookstore_api
+    restart: always
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=True
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_NAME=bookstore_db
+      - DB_USER=bookstore_user
+      - DB_PASSWORD=bookstore_pass_123
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  mysql_data:

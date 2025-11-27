@@ -1,0 +1,25 @@
+# Django core
+Django==4.2.7
+djangorestframework==3.14.0
+
+# MySQL connector
+mysqlclient==2.2.0
+
+# Para las llamadas HTTP a la API de exchange
+requests==2.31.0
+
+# Validación de ISBN
+python-stdnum==1.19
+
+# Variables de entorno
+python-decouple==3.8
+
+# CORS (por si se necesita frontend)
+django-cors-headers==4.3.0
+
+# Para testing
+pytest==7.4.3
+pytest-django==4.7.0
+
+# Utilidades
+gunicorn==21.2.0
