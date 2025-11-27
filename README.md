@@ -1,6 +1,6 @@
 # 📚 Bookstore Inventory API
 
-API REST para sistema de gestión de inventario de librerías con validación de precios en tiempo real.
+API REST en django para sistema de gestión de inventario de librerías con validación de precios en tiempo real.
 
 ---
 
