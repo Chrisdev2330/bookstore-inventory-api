@@ -1,0 +1,902 @@
+{
+	"info": {
+		"_postman_id": "b1c2d3e4-f5g6-7890-abcd-ef1234567890",
+		"name": "📚 Bookstore Inventory API - Completa",
+		"description": "Colección completa de endpoints para la API de inventario de librería.\n\n## Base URL\n`http://localhost:8000/api/`\n\n## Credenciales Admin\n- Usuario: admin\n- Password: admin123\n\n## Orden sugerido de pruebas:\n1. Crear libros (POST)\n2. Listar libros (GET)\n3. Obtener libro por ID (GET)\n4. Calcular precio (POST)\n5. Buscar por categoría (GET)\n6. Stock bajo (GET)\n7. Actualizar libro (PUT/PATCH)\n8. Eliminar libro (DELETE)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "📗 1. CREAR LIBROS",
+			"item": [
+				{
+					"name": "1.1 Crear - El Quijote",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"El Quijote\",\n    \"author\": \"Miguel de Cervantes\",\n    \"isbn\": \"978-84-376-0494-7\",\n    \"cost_usd\": 15.99,\n    \"stock_quantity\": 25,\n    \"category\": \"Literatura Clásica\",\n    \"supplier_country\": \"ES\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/books/",
+							"host": ["{{base_url}}"],
+							"path": ["books", ""]
+						},
+						"description": "Crea el libro 'El Quijote' con stock normal."
+					},
+					"response": []
+				},
+				{
+					"name": "1.2 Crear - Cien años de soledad",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Cien años de soledad\",\n    \"author\": \"Gabriel García Márquez\",\n    \"isbn\": \"9780060883287\",\n    \"cost_usd\": 12.50,\n    \"stock_quantity\": 8,\n    \"category\": \"Realismo Mágico\",\n    \"supplier_country\": \"CO\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/books/",
+							"host": ["{{base_url}}"],
+							"path": ["books", ""]
+						},
+						"description": "Crea el libro 'Cien años de soledad' con stock medio."
+					},
+					"response": []
+				},
+				{
+					"name": "1.3 Crear - 1984 (Stock Bajo)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"1984\",\n    \"author\": \"George Orwell\",\n    \"isbn\": \"9780451524935\",\n    \"cost_usd\": 9.99,\n    \"stock_quantity\": 3,\n    \"category\": \"Ciencia Ficción\",\n    \"supplier_country\": \"GB\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/books/",
+							"host": ["{{base_url}}"],
+							"path": ["books", ""]
+						},
+						"description": "Crea '1984' con stock bajo (3 unidades) para probar endpoint low-stock."
+					},
+					"response": []
+				},
+				{
+					"name": "1.4 Crear - Don Quijote (Otra edición)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Don Quijote de la Mancha - Edición Ilustrada\",\n    \"author\": \"Miguel de Cervantes\",\n    \"isbn\": \"9788420412146\",\n    \"cost_usd\": 24.99,\n    \"stock_quantity\": 15,\n    \"category\": \"Literatura Clásica\",\n    \"supplier_country\": \"ES\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/books/",
+							"host": ["{{base_url}}"],
+							"path": ["books", ""]
+						},
+						"description": "Otra edición del Quijote para probar búsqueda por categoría."
+					},
+					"response": []
+				},
+				{
+					"name": "1.5 Crear - El Principito",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"El Principito\",\n    \"author\": \"Antoine de Saint-Exupéry\",\n    \"isbn\": \"9780156012195\",\n    \"cost_usd\": 8.99,\n    \"stock_quantity\": 50,\n    \"category\": \"Literatura Infantil\",\n    \"supplier_country\": \"FR\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/books/",
+							"host": ["{{base_url}}"],
+							"path": ["books", ""]
+						},
+						"description": "Crea 'El Principito' con alto stock."
+					},
+					"response": []
+				},
+				{
+					"name": "1.6 Crear - Fahrenheit 451 (Stock Bajo)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Fahrenheit 451\",\n    \"author\": \"Ray Bradbury\",\n    \"isbn\": \"9781451673319\",\n    \"cost_usd\": 11.50,\n    \"stock_quantity\": 5,\n    \"category\": \"Ciencia Ficción\",\n    \"supplier_country\": \"US\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/books/",
+							"host": ["{{base_url}}"],
+							"path": ["books", ""]
+						},
+						"description": "Crea 'Fahrenheit 451' con stock bajo para probar filtro."
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints para crear libros. Ejecutar primero para tener datos de prueba."
+		},
+		{
+			"name": "📘 2. LISTAR LIBROS",
+			"item": [
+				{
+					"name": "2.1 Listar todos los libros",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/books/",
+							"host": ["{{base_url}}"],
+							"path": ["books", ""]
+						},
+						"description": "Obtiene la lista de todos los libros con paginación (10 por página)."
+					},
+					"response": []
+				},
+				{
+					"name": "2.2 Listar libros - Página 2",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/books/?page=2",
+							"host": ["{{base_url}}"],
+							"path": ["books", ""],
+							"query": [
+								{
+									"key": "page",
+									"value": "2"
+								}
+							]
+						},
+						"description": "Obtiene la segunda página de resultados."
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints para listar libros con paginación."
+		},
+		{
+			"name": "📙 3. OBTENER LIBRO POR ID",
+			"item": [
+				{
+					"name": "3.1 Obtener libro ID 1",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/books/1/",
+							"host": ["{{base_url}}"],
+							"path": ["books", "1", ""]
+						},
+						"description": "Obtiene los detalles completos del libro con ID 1."
+					},
+					"response": []
+				},
+				{
+					"name": "3.2 Obtener libro ID 2",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/books/2/",
+							"host": ["{{base_url}}"],
+							"path": ["books", "2", ""]
+						},
+						"description": "Obtiene los detalles completos del libro con ID 2."
+					},
+					"response": []
+				},
+				{
+					"name": "3.3 Obtener libro ID 3",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/books/3/",
+							"host": ["{{base_url}}"],
+							"path": ["books", "3", ""]
+						},
+						"description": "Obtiene los detalles completos del libro con ID 3."
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints para obtener un libro específico por su ID."
+		},
+		{
+			"name": "💰 4. CALCULAR PRECIO (API Externa)",
+			"item": [
+				{
+					"name": "4.1 Calcular precio - Libro 1 (EUR default)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/books/1/calculate-price/",
+							"host": ["{{base_url}}"],
+							"path": ["books", "1", "calculate-price", ""]
+						},
+						"description": "Calcula el precio de venta del libro 1 usando la tasa de cambio actual.\n\nUsa EUR como moneda por defecto.\n\nAplica margen de ganancia del 40%."
+					},
+					"response": []
+				},
+				{
+					"name": "4.2 Calcular precio - Libro 1 (MXN)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/books/1/calculate-price/?currency=MXN",
+							"host": ["{{base_url}}"],
+							"path": ["books", "1", "calculate-price", ""],
+							"query": [
+								{
+									"key": "currency",
+									"value": "MXN"
+								}
+							]
+						},
+						"description": "Calcula el precio en Pesos Mexicanos (MXN)."
+					},
+					"response": []
+				},
+				{
+					"name": "4.3 Calcular precio - Libro 2 (EUR)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/books/2/calculate-price/?currency=EUR",
+							"host": ["{{base_url}}"],
+							"path": ["books", "2", "calculate-price", ""],
+							"query": [
+								{
+									"key": "currency",
+									"value": "EUR"
+								}
+							]
+						},
+						"description": "Calcula el precio del libro 2 en Euros."
+					},
+					"response": []
+				},
+				{
+					"name": "4.4 Calcular precio - Libro 3 (GBP)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/books/3/calculate-price/?currency=GBP",
+							"host": ["{{base_url}}"],
+							"path": ["books", "3", "calculate-price", ""],
+							"query": [
+								{
+									"key": "currency",
+									"value": "GBP"
+								}
+							]
+						},
+						"description": "Calcula el precio del libro 3 en Libras Esterlinas."
+					},
+					"response": []
+				},
+				{
+					"name": "4.5 Calcular precio - Libro 2 (COP)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/books/2/calculate-price/?currency=COP",
+							"host": ["{{base_url}}"],
+							"path": ["books", "2", "calculate-price", ""],
+							"query": [
+								{
+									"key": "currency",
+									"value": "COP"
+								}
+							]
+						},
+						"description": "Calcula el precio en Pesos Colombianos."
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoint principal que integra con la API externa de tasas de cambio.\n\nLógica:\n1. Obtiene cost_usd del libro\n2. Consulta tasa de cambio actual\n3. Aplica margen del 40%\n4. Actualiza selling_price_local en BD\n5. Retorna cálculo detallado"
+		},
+		{
+			"name": "🔍 5. BUSCAR POR CATEGORÍA",
+			"item": [
+				{
+					"name": "5.1 Buscar - Literatura Clásica",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/books/search/?category=Literatura Clásica",
+							"host": ["{{base_url}}"],
+							"path": ["books", "search", ""],
+							"query": [
+								{
+									"key": "category",
+									"value": "Literatura Clásica"
+								}
+							]
+						},
+						"description": "Busca libros en la categoría 'Literatura Clásica'."
+					},
+					"response": []
+				},
+				{
+					"name": "5.2 Buscar - Ciencia Ficción",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/books/search/?category=Ciencia Ficción",
+							"host": ["{{base_url}}"],
+							"path": ["books", "search", ""],
+							"query": [
+								{
+									"key": "category",
+									"value": "Ciencia Ficción"
+								}
+							]
+						},
+						"description": "Busca libros de Ciencia Ficción."
+					},
+					"response": []
+				},
+				{
+					"name": "5.3 Buscar - Realismo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/books/search/?category=Realismo",
+							"host": ["{{base_url}}"],
+							"path": ["books", "search", ""],
+							"query": [
+								{
+									"key": "category",
+									"value": "Realismo"
+								}
+							]
+						},
+						"description": "Busca libros que contengan 'Realismo' en la categoría."
+					},
+					"response": []
+				},
+				{
+					"name": "5.4 Buscar - Literatura (búsqueda parcial)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/books/search/?category=Literatura",
+							"host": ["{{base_url}}"],
+							"path": ["books", "search", ""],
+							"query": [
+								{
+									"key": "category",
+									"value": "Literatura"
+								}
+							]
+						},
+						"description": "Búsqueda parcial - encuentra todas las categorías que contengan 'Literatura'."
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoint opcional para buscar libros por categoría.\n\nLa búsqueda es case-insensitive y parcial."
+		},
+		{
+			"name": "📉 6. STOCK BAJO",
+			"item": [
+				{
+					"name": "6.1 Stock bajo - Default (≤10)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/books/low-stock/",
+							"host": ["{{base_url}}"],
+							"path": ["books", "low-stock", ""]
+						},
+						"description": "Obtiene libros con stock menor o igual a 10 (threshold por defecto)."
+					},
+					"response": []
+				},
+				{
+					"name": "6.2 Stock bajo - Threshold 5",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/books/low-stock/?threshold=5",
+							"host": ["{{base_url}}"],
+							"path": ["books", "low-stock", ""],
+							"query": [
+								{
+									"key": "threshold",
+									"value": "5"
+								}
+							]
+						},
+						"description": "Obtiene libros con stock menor o igual a 5."
+					},
+					"response": []
+				},
+				{
+					"name": "6.3 Stock bajo - Threshold 3",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/books/low-stock/?threshold=3",
+							"host": ["{{base_url}}"],
+							"path": ["books", "low-stock", ""],
+							"query": [
+								{
+									"key": "threshold",
+									"value": "3"
+								}
+							]
+						},
+						"description": "Obtiene libros con stock menor o igual a 3."
+					},
+					"response": []
+				},
+				{
+					"name": "6.4 Stock bajo - Threshold 20",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/books/low-stock/?threshold=20",
+							"host": ["{{base_url}}"],
+							"path": ["books", "low-stock", ""],
+							"query": [
+								{
+									"key": "threshold",
+									"value": "20"
+								}
+							]
+						},
+						"description": "Obtiene libros con stock menor o igual a 20."
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoint opcional para filtrar libros con stock bajo."
+		},
+		{
+			"name": "✏️ 7. ACTUALIZAR LIBROS",
+			"item": [
+				{
+					"name": "7.1 PATCH - Actualizar solo stock",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"stock_quantity\": 100\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/books/1/",
+							"host": ["{{base_url}}"],
+							"path": ["books", "1", ""]
+						},
+						"description": "Actualiza solo el stock del libro 1 (actualización parcial)."
+					},
+					"response": []
+				},
+				{
+					"name": "7.2 PATCH - Actualizar precio",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cost_usd\": 19.99\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/books/1/",
+							"host": ["{{base_url}}"],
+							"path": ["books", "1", ""]
+						},
+						"description": "Actualiza solo el costo USD del libro 1."
+					},
+					"response": []
+				},
+				{
+					"name": "7.3 PATCH - Actualizar categoría",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"category\": \"Clásicos de la Literatura Universal\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/books/1/",
+							"host": ["{{base_url}}"],
+							"path": ["books", "1", ""]
+						},
+						"description": "Actualiza solo la categoría del libro 1."
+					},
+					"response": []
+				},
+				{
+					"name": "7.4 PUT - Actualizar libro completo",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"El Ingenioso Hidalgo Don Quijote de la Mancha\",\n    \"author\": \"Miguel de Cervantes Saavedra\",\n    \"isbn\": \"978-84-376-0494-7\",\n    \"cost_usd\": 22.99,\n    \"stock_quantity\": 45,\n    \"category\": \"Clásicos Españoles del Siglo de Oro\",\n    \"supplier_country\": \"ES\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/books/1/",
+							"host": ["{{base_url}}"],
+							"path": ["books", "1", ""]
+						},
+						"description": "Actualiza TODOS los campos del libro 1 (requiere todos los campos)."
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints para actualizar libros.\n\n- PATCH: Actualización parcial (solo campos enviados)\n- PUT: Actualización completa (requiere todos los campos)"
+		},
+		{
+			"name": "🗑️ 8. ELIMINAR LIBROS",
+			"item": [
+				{
+					"name": "8.1 Eliminar libro ID 6",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/books/6/",
+							"host": ["{{base_url}}"],
+							"path": ["books", "6", ""]
+						},
+						"description": "Elimina el libro con ID 6."
+					},
+					"response": []
+				},
+				{
+					"name": "8.2 Eliminar libro ID 5",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/books/5/",
+							"host": ["{{base_url}}"],
+							"path": ["books", "5", ""]
+						},
+						"description": "Elimina el libro con ID 5."
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoint para eliminar libros del inventario."
+		},
+		{
+			"name": "📊 9. ESTADÍSTICAS",
+			"item": [
+				{
+					"name": "9.1 Obtener estadísticas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/books/stats/",
+							"host": ["{{base_url}}"],
+							"path": ["books", "stats", ""]
+						},
+						"description": "Obtiene estadísticas generales del inventario:\n- Total de libros\n- Total de unidades en stock\n- Promedio de costo USD\n- Libros con precio calculado\n- Top 5 categorías"
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoint bonus para estadísticas del inventario."
+		},
+		{
+			"name": "❌ 10. PRUEBAS DE ERRORES",
+			"item": [
+				{
+					"name": "10.1 Error 400 - ISBN duplicado",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Libro con ISBN Duplicado\",\n    \"author\": \"Autor Test\",\n    \"isbn\": \"978-84-376-0494-7\",\n    \"cost_usd\": 10.00,\n    \"stock_quantity\": 5,\n    \"category\": \"Test\",\n    \"supplier_country\": \"US\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/books/",
+							"host": ["{{base_url}}"],
+							"path": ["books", ""]
+						},
+						"description": "Intenta crear un libro con ISBN ya existente.\n\nEsperado: Error 400 - Ya existe un libro con este ISBN."
+					},
+					"response": []
+				},
+				{
+					"name": "10.2 Error 400 - Costo negativo",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Libro con costo inválido\",\n    \"author\": \"Autor Test\",\n    \"isbn\": \"1234567890123\",\n    \"cost_usd\": -5.00,\n    \"stock_quantity\": 5,\n    \"category\": \"Test\",\n    \"supplier_country\": \"US\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/books/",
+							"host": ["{{base_url}}"],
+							"path": ["books", ""]
+						},
+						"description": "Intenta crear un libro con costo negativo.\n\nEsperado: Error 400 - El costo debe ser mayor a 0."
+					},
+					"response": []
+				},
+				{
+					"name": "10.3 Error 400 - Costo cero",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Libro gratis\",\n    \"author\": \"Autor Test\",\n    \"isbn\": \"1234567890124\",\n    \"cost_usd\": 0,\n    \"stock_quantity\": 5,\n    \"category\": \"Test\",\n    \"supplier_country\": \"US\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/books/",
+							"host": ["{{base_url}}"],
+							"path": ["books", ""]
+						},
+						"description": "Intenta crear un libro con costo 0.\n\nEsperado: Error 400 - El costo debe ser mayor a 0."
+					},
+					"response": []
+				},
+				{
+					"name": "10.4 Error 400 - ISBN inválido (muy corto)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Libro con ISBN corto\",\n    \"author\": \"Autor Test\",\n    \"isbn\": \"12345\",\n    \"cost_usd\": 10.00,\n    \"stock_quantity\": 5,\n    \"category\": \"Test\",\n    \"supplier_country\": \"US\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/books/",
+							"host": ["{{base_url}}"],
+							"path": ["books", ""]
+						},
+						"description": "Intenta crear un libro con ISBN de 5 dígitos.\n\nEsperado: Error 400 - ISBN debe tener 10 o 13 dígitos."
+					},
+					"response": []
+				},
+				{
+					"name": "10.5 Error 400 - Stock negativo",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Libro con stock negativo\",\n    \"author\": \"Autor Test\",\n    \"isbn\": \"1234567890125\",\n    \"cost_usd\": 10.00,\n    \"stock_quantity\": -10,\n    \"category\": \"Test\",\n    \"supplier_country\": \"US\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/books/",
+							"host": ["{{base_url}}"],
+							"path": ["books", ""]
+						},
+						"description": "Intenta crear un libro con stock negativo.\n\nEsperado: Error 400 - El stock no puede ser negativo."
+					},
+					"response": []
+				},
+				{
+					"name": "10.6 Error 400 - Búsqueda sin categoría",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/books/search/",
+							"host": ["{{base_url}}"],
+							"path": ["books", "search", ""]
+						},
+						"description": "Intenta buscar sin especificar categoría.\n\nEsperado: Error 400 - El parámetro 'category' es requerido."
+					},
+					"response": []
+				},
+				{
+					"name": "10.7 Error 404 - Libro no existe",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/books/99999/",
+							"host": ["{{base_url}}"],
+							"path": ["books", "99999", ""]
+						},
+						"description": "Intenta obtener un libro que no existe.\n\nEsperado: Error 404 - Not Found."
+					},
+					"response": []
+				},
+				{
+					"name": "10.8 Error 404 - Calcular precio libro inexistente",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/books/99999/calculate-price/",
+							"host": ["{{base_url}}"],
+							"path": ["books", "99999", "calculate-price", ""]
+						},
+						"description": "Intenta calcular precio de un libro que no existe.\n\nEsperado: Error 404 - Not Found."
+					},
+					"response": []
+				},
+				{
+					"name": "10.9 Error 404 - Categoría no encontrada",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/books/search/?category=CategoriaQueNoExiste",
+							"host": ["{{base_url}}"],
+							"path": ["books", "search", ""],
+							"query": [
+								{
+									"key": "category",
+									"value": "CategoriaQueNoExiste"
+								}
+							]
+						},
+						"description": "Busca una categoría que no existe.\n\nEsperado: Error 404 - No se encontraron libros."
+					},
+					"response": []
+				}
+			],
+			"description": "Pruebas de validación y manejo de errores HTTP.\n\nCódigos esperados:\n- 400: Bad Request (validación)\n- 404: Not Found\n- 500: Internal Server Error\n- 503: Service Unavailable (API externa)"
+		},
+		{
+			"name": "🏠 11. ENDPOINTS RAÍZ",
+			"item": [
+				{
+					"name": "11.1 Raíz de la API",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8000",
+							"path": [""]
+						},
+						"description": "Endpoint raíz que muestra información de la API."
+					},
+					"response": []
+				},
+				{
+					"name": "11.2 API Books Root",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/",
+							"host": ["{{base_url}}"],
+							"path": [""]
+						},
+						"description": "Raíz del endpoint de libros (DRF Browsable API)."
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints raíz de la aplicación."
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [""]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [""]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000/api",
+			"type": "string"
+		}
+	]
+}
